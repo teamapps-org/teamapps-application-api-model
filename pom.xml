@@ -10,7 +10,7 @@
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <universal-db-version>0.5.23</universal-db-version>
+        <universal-db-version>0.5.24</universal-db-version>
     </properties>
 
     <name>TeamApps Application API Base Model</name>
@@ -209,7 +209,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <projectName>TeamApps Application API Base Model</projectName>
+                            <projectName>TeamApps Application API Model</projectName>
                             <organizationName>TeamApps.org</organizationName>
                             <inceptionYear>2020</inceptionYear>
                             <licenseName>apache_v2</licenseName>
