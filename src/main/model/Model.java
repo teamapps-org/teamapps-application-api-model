@@ -1,6 +1,6 @@
 /*-
  * ========================LICENSE_START=================================
- * TeamApps Application API Base Model
+ * TeamApps Application API Model
  * ---
  * Copyright (C) 2020 - 2022 TeamApps.org
  * ---
