@@ -52,6 +52,7 @@ public class Model implements SchemaInfoProvider {
 				.addReference("children", organizationUnitView, true, "parent")
 				.addReference("type", organizationUnitTypeView, false)
 				.addText("icon")
+				.addEnum("orgUnitLifeCycleStatus", "active", "inactive", "prepareDeletion")
 				.addReference("address", addressView, false)
 		;
 
