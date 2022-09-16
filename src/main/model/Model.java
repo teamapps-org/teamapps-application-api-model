@@ -32,6 +32,7 @@ public class Model implements SchemaInfoProvider {
 		Table organizationUnitTypeView = db.addView("organizationUnitTypeView", "controlCenter.organizationUnitType");
 		Table organizationFieldView = db.addView("organizationFieldView", "controlCenter.organizationField");
 		Table addressView = db.addView("addressView", "controlCenter.address");
+		Table userView = db.addView("userView", "controlCenter.user");
 
 		addressView
 				.addText("name")
@@ -71,6 +72,17 @@ public class Model implements SchemaInfoProvider {
 		organizationFieldView
 				.addTranslatableText("title")
 				.addText("icon")
+		;
+
+		userView
+				.addText("firstName")
+				.addText("firstNameTranslated")
+				.addText("lastName")
+				.addText("lastNameTranslated")
+				.addBinary("profilePicture")
+				.addBinary("profilePictureLarge")
+				.addText("language")
+				.addReference("organizationUnit", organizationUnitView, false)
 		;
 
 		return schema;
