@@ -17,74 +17,71 @@
  * limitations under the License.
  * =========================LICENSE_END==================================
  */
+import org.teamapps.universaldb.model.DatabaseModel;
+import org.teamapps.universaldb.model.TableModel;
 import org.teamapps.universaldb.schema.*;
+
+import java.util.Arrays;
 
 import static org.teamapps.universaldb.schema.TableOption.*;
 
-public class Model implements SchemaInfoProvider {
+public class Model implements ModelProvider {
+
 	@Override
-	public Schema getSchema() {
-		Schema schema = Schema.create("org.teamapps.model");
-		schema.setSchemaName("ApiSchema");
-		Database db = schema.addDatabase("controlCenter");
+	public DatabaseModel getModel() {
+		DatabaseModel model = new DatabaseModel("controlCenter", "Control center", "org.teamapps.model");
+		model.setPojoBuildTime(1686231909478L);
+		model.createEnum("orgUnitLifeCycleStatus", "Org unit life cycle status", Arrays.asList("active", "inactive", "prepareDeletion"), Arrays.asList("active", "inactive", "Prepare deletion"));
+		model.createEnum("geoLocationType", "Geo location type", Arrays.asList("country", "state", "city", "place", "none"), Arrays.asList("country", "state", "city", "place", "none"));
 
-		Table organizationUnitView = db.addView("organizationUnitView", "controlCenter.organizationUnit");
-		Table organizationUnitTypeView = db.addView("organizationUnitTypeView", "controlCenter.organizationUnitType");
-		Table organizationFieldView = db.addView("organizationFieldView", "controlCenter.organizationField");
-		Table addressView = db.addView("addressView", "controlCenter.address");
-		Table userView = db.addView("userView", "controlCenter.user");
+		TableModel organizationUnitViewTable = model.createRemoteTable("organizationUnitView", "Organization unit view", "controlCenter");
+		TableModel organizationUnitTypeViewTable = model.createRemoteTable("organizationUnitTypeView", "Organization unit type view", "controlCenter");
+		TableModel organizationFieldViewTable = model.createRemoteTable("organizationFieldView", "Organization field view", "controlCenter");
+		TableModel addressViewTable = model.createRemoteTable("addressView", "Address view", "controlCenter");
+		TableModel userViewTable = model.createRemoteTable("userView", "User view", "controlCenter");
 
-		addressView
-				.addText("name")
-				.addText("organisation")
-				.addText("street")
-				.addText("city")
-				.addText("dependentLocality")
-				.addText("state")
-				.addText("postalCode")
-				.addText("country")
-				.addFloat("latitude")
-				.addFloat("longitude")
-		;
+		organizationUnitViewTable.addTranslatableText("name", "name");
+		organizationUnitViewTable.addReference("parent", "parent", "organizationUnitView", false);
+		organizationUnitViewTable.addMultiReference("children", "children", "organizationUnitView", false);
+		organizationUnitViewTable.addReference("type", "type", "organizationUnitTypeView", false);
+		organizationUnitViewTable.addText("icon", "icon");
+		organizationUnitViewTable.addEnum("orgUnitLifeCycleStatus", "Org unit life cycle status", "orgUnitLifeCycleStatus");
+		organizationUnitViewTable.addReference("address", "address", "addressView", false);
 
-		organizationUnitView
-				.addTranslatableText("name")
-				.addReference("parent", organizationUnitView, false, "children")
-				.addReference("children", organizationUnitView, true, "parent")
-				.addReference("type", organizationUnitTypeView, false)
-				.addText("icon")
-				.addEnum("orgUnitLifeCycleStatus", "active", "inactive", "prepareDeletion")
-				.addReference("address", addressView, false)
-		;
+		organizationUnitTypeViewTable.addTranslatableText("name", "name");
+		organizationUnitTypeViewTable.addTranslatableText("abbreviation", "abbreviation");
+		organizationUnitTypeViewTable.addText("icon", "icon");
+		organizationUnitTypeViewTable.addBoolean("translateOrganizationUnits", "Translate organization units");
+		organizationUnitTypeViewTable.addBoolean("allowUserContainer", "Allow user container");
+		organizationUnitTypeViewTable.addReference("defaultChildType", "Default child type", "organizationUnitTypeView", false);
+		organizationUnitTypeViewTable.addMultiReference("possibleChildrenTypes", "Possible children types", "organizationUnitTypeView", false);
+		organizationUnitTypeViewTable.addEnum("geoLocationType", "Geo location type", "geoLocationType");
+
+		organizationFieldViewTable.addTranslatableText("title", "title");
+		organizationFieldViewTable.addText("icon", "icon");
+
+		addressViewTable.addText("name", "name");
+		addressViewTable.addText("organisation", "organisation");
+		addressViewTable.addText("street", "street");
+		addressViewTable.addText("city", "city");
+		addressViewTable.addText("dependentLocality", "Dependent locality");
+		addressViewTable.addText("state", "state");
+		addressViewTable.addText("postalCode", "Postal code");
+		addressViewTable.addText("country", "country");
+		addressViewTable.addFloat("latitude", "latitude");
+		addressViewTable.addFloat("longitude", "longitude");
+
+		userViewTable.addText("firstName", "First name");
+		userViewTable.addText("firstNameTranslated", "First name translated");
+		userViewTable.addText("lastName", "Last name");
+		userViewTable.addText("lastNameTranslated", "Last name translated");
+		userViewTable.addByteArray("profilePicture", "Profile picture");
+		userViewTable.addByteArray("profilePictureLarge", "Profile picture large");
+		userViewTable.addText("language", "language");
+		userViewTable.addReference("organizationUnit", "Organization unit", "organizationUnitView", false);
 
 
-		organizationUnitTypeView
-				.addTranslatableText("name")
-				.addTranslatableText("abbreviation")
-				.addText("icon")
-				.addBoolean("translateOrganizationUnits")
-				.addBoolean("allowUserContainer")
-				.addReference("defaultChildType", organizationUnitTypeView, false)
-				.addReference("possibleChildrenTypes", organizationUnitTypeView, true)
-				.addEnum("geoLocationType", "country", "state", "city", "place", "none")
-		;
-
-		organizationFieldView
-				.addTranslatableText("title")
-				.addText("icon")
-		;
-
-		userView
-				.addText("firstName")
-				.addText("firstNameTranslated")
-				.addText("lastName")
-				.addText("lastNameTranslated")
-				.addBinary("profilePicture")
-				.addBinary("profilePictureLarge")
-				.addText("language")
-				.addReference("organizationUnit", organizationUnitView, false)
-		;
-
-		return schema;
+		return model;
 	}
+
 }
