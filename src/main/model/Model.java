@@ -35,11 +35,11 @@ public class Model implements ModelProvider {
 		EnumModel geoLocationType = model.createEnum("geoLocationType", "Geo location type", Arrays.asList("country", "state", "city", "place", "none"), Arrays.asList("country", "state", "city", "place", "none"));
 		EnumModel orgUnitLifeCycleStatus = model.createEnum("orgUnitLifeCycleStatus", "Org unit life cycle status", Arrays.asList("active", "inactive", "prepareDeletion"), Arrays.asList("active", "inactive", "Prepare deletion"));
 
-		TableModel addressView = model.createRemoteTable("addressView", "Address view", "address", "controlCenter", null);
-		TableModel organizationFieldView = model.createRemoteTable("organizationFieldView", "Organization field view", "organizationField", "controlCenter", null);
-		TableModel organizationUnitTypeView = model.createRemoteTable("organizationUnitTypeView", "Organization unit type view", "organizationUnitType", "controlCenter", null);
-		TableModel organizationUnitView = model.createRemoteTable("organizationUnitView", "Organization unit view", "organizationUnit", "controlCenter", null);
-		TableModel userView = model.createRemoteTable("userView", "User view", "user", "controlCenter", null);
+		TableModel addressView = model.createRemoteTable("addressView", "Address view", "address", "controlCenter", "org.teamapps.model");
+		TableModel organizationFieldView = model.createRemoteTable("organizationFieldView", "Organization field view", "organizationField", "controlCenter", "org.teamapps.model");
+		TableModel organizationUnitTypeView = model.createRemoteTable("organizationUnitTypeView", "Organization unit type view", "organizationUnitType", "controlCenter", "org.teamapps.model");
+		TableModel organizationUnitView = model.createRemoteTable("organizationUnitView", "Organization unit view", "organizationUnit", "controlCenter", "org.teamapps.model");
+		TableModel userView = model.createRemoteTable("userView", "User view", "user", "controlCenter", "org.teamapps.model");
 
 		addressView.addText("name", "name");
 		addressView.addText("organisation", "organisation");
