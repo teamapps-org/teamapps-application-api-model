@@ -10,7 +10,7 @@
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <universal-db-version>0.6.7</universal-db-version>
+        <universal-db-version>0.6.8</universal-db-version>
     </properties>
 
     <name>TeamApps Application API Base Model</name>
