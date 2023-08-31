@@ -33,7 +33,7 @@ public class Model implements ModelProvider {
 		DatabaseModel model = new DatabaseModel("controlCenter", "Control center", "org.teamapps.model", "controlCenterModel");
 		model.setPojoBuildTime(1687083086395L);
 		EnumModel geoLocationType = model.createEnum("geoLocationType", "Geo location type", Arrays.asList("country", "state", "city", "place", "none"), Arrays.asList("country", "state", "city", "place", "none"));
-		EnumModel orgUnitLifeCycleStatus = model.createEnum("orgUnitLifeCycleStatus", "Org unit life cycle status", Arrays.asList("active", "inactive", "prepareDeletion"), Arrays.asList("active", "inactive", "Prepare deletion"));
+		EnumModel orgUnitLifeCycleStatus = model.createEnum("orgUnitLifeCycleStatus", "Org unit life cycle status", Arrays.asList("active", "inactive", "prepareDeletion", "deleted"), Arrays.asList("Active", "Inactive", "Prepare deletion", "Deleted"));
 
 		TableModel addressView = model.createRemoteTable("addressView", "Address view", "address", "controlCenter", "org.teamapps.model");
 		TableModel organizationFieldView = model.createRemoteTable("organizationFieldView", "Organization field view", "organizationField", "controlCenter", "org.teamapps.model");
